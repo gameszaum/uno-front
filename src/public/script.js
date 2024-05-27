@@ -1,18 +1,18 @@
-const server = new WebSocket('ws://127.0.0.1:2222');
+const server = new WebSocket('wss://api.hydra-slots.com/uno');
 const user = {}, room = {
     players: []
 };
 
 server.onclose = close => {
-    $('.error-head .error-title a').text('Disconnected');
-    $('.error-head .error-desc').text(close && close.reason || 'Please reload the page!');
+    $('.error-head .error-title a').text('Desconectado');
+    $('.error-head .error-desc').text(close && close.reason || 'Por favor recarregue a página!');
     $('.error-close').hide();
     $('#error-container').show();
     location.hash = '';
 };
 server.onerror = () => {
-    $('.error-head .error-title a').text('Disconnected');
-    $('.error-head .error-desc').text('Something went wrong! Please reload the page!');
+    $('.error-head .error-title a').text('Desconectado');
+    $('.error-head .error-desc').text('Algo deu errado! Por favor recarregue a página!');
     $('.error-close').hide();
     $('#error-container').show();
 };
@@ -38,9 +38,9 @@ server.onmessage = function (event) {
             $('.refresh').attr('disabled', false);
         }, data.cooldown);
         $('.room-list').html('');
-        if (!data.rooms.length) return $('.room-list').html('No rooms avainable :(');
+        if (!data.rooms.length) return $('.room-list').html('Sem salas disponíveis :(');
         data.rooms.forEach(room => {
-            $('.room-list').append(`<div class="item" data-id="${room.roomID}"><div><a title="${escapeHtml(room.roomName)}">${escapeHtml(room.roomName)}</a></div><div><a>Players ${room.playerCount}/4</a></div></div>`);
+            $('.room-list').append(`<div class="item" data-id="${room.roomID}"><div><a title="${escapeHtml(room.roomName)}">${escapeHtml(room.roomName)}</a></div><div><a>Jogadores ${room.playerCount}/4</a></div></div>`);
         });
         $('.room-list .item').click(item => {
             room.roomID = item.currentTarget.getAttribute('data-id');
@@ -56,7 +56,7 @@ server.onmessage = function (event) {
             $(".nickname").focus();
             $(".room-settings").hide();
             user.action = 'join';
-        } else error('Invalid Code', data.message)
+        } else error('Código inválido', data.message)
     }
     if (data.type === 'my_cards') {
         $('.you .my-cards').html(null);
@@ -101,11 +101,11 @@ server.onmessage = function (event) {
                     $('.limbo-player-list').append(`<div class="limbo-player-item"${user.action === 'create' ? ` data-id="${player.id}"` : ''}>${escapeHtml(player.nickname)}</div>`);
                     if (user.action === 'create') $('.limbo-player-list .limbo-player-item').click(element => {
                         $(".kick-accept").off('click');
-                        $(".kick-accept").click(()=>{
+                        $(".kick-accept").click(() => {
                             server.send(JSON.stringify({ type: 'kick', id: element.currentTarget.getAttribute('data-id') }));
                             $("#player-management-container").hide();
                         });
-                        $(".kick-decline").click(()=>{
+                        $(".kick-decline").click(() => {
                             $("#player-management-container").hide();
                         });
                         $("#player-management-container .kick-head .kick-desc a").text(element.currentTarget.textContent);
@@ -207,9 +207,9 @@ server.onmessage = function (event) {
             delete window.uno_message;
         }
         $(".uno-message").hide();
-        $(".uno-message").text(data.nickname + " didn't press the UNO button! (+2 cards)");
+        $(".uno-message").text(data.nickname + " não pressionou o botão de uno! (+2 cartas)");
         $(".uno-message").show();
-        window.uno_message = setTimeout(()=>{$(".uno-message").hide()}, 4e3);
+        window.uno_message = setTimeout(() => { $(".uno-message").hide() }, 4e3);
     }
     if (data.type === 'win') {
         if (!isNaN(data.centerCard.number) && !data.centerCard.ability) $('.center .center-card').html(`<div class="my-card num-${data.centerCard.number} ${data.centerCard.color}" data-ability data-color="${data.centerCard.color}" data-number="${data.centerCard.number}"><span class="inner"><span class="mark">${data.centerCard.number}</span></span></div>`);
@@ -263,7 +263,7 @@ server.onmessage = function (event) {
         error(data.title, data.message);
     }
     if (data.type === 'room_closed') {
-        error("Room Closed", data.message);
+        error("Sala fechada", data.message);
     }
     if (data.type === 'winner') {
         if (user.action === 'create') $('.admin-buttons').show();
@@ -337,13 +337,13 @@ $('.deck .my-card').click(() => {
     server.send(JSON.stringify({ type: 'action', action: 'take' }));
 });
 $('.chat-head').click(() => {
-    if($('.chat').css('height') === '0px') {
+    if ($('.chat').css('height') === '0px') {
         $('.chat').css('height', '');
         $('.chat-switch i').css('transform', '');
         localStorage.setItem('chat_open', true);
     } else {
         $('.chat').css('height', '0px');
-        $('.chat-switch i').css('transform','rotate(180deg)');
+        $('.chat-switch i').css('transform', 'rotate(180deg)');
         localStorage.setItem('chat_open', false);
     }
 });
@@ -352,7 +352,7 @@ $('.chat-send').click(() => {
     $('.chat-input input').val('');
 })
 $(window).keydown(key => {
-    if ((key.keyCode === 13 || key.key === 'Enter') && $('.chat').css('height') !== '0px' && $("#overlay").css('display') === 'block'){
+    if ((key.keyCode === 13 || key.key === 'Enter') && $('.chat').css('height') !== '0px' && $("#overlay").css('display') === 'block') {
         if ($('.chat-input input').is(":focus")) {
             server.send(JSON.stringify({ type: "message", message: $('.chat-input input').val() }));
             $('.chat-input input').val('');
@@ -360,8 +360,8 @@ $(window).keydown(key => {
     }
     //if(key.keyCod)
 })
-$('.uno').click(()=>{
-    server.send(JSON.stringify({type: 'uno'}));
+$('.uno').click(() => {
+    server.send(JSON.stringify({ type: 'uno' }));
 })
 $('.color-selector .green').click(() => {
     user.push.pickedColor = 'green';

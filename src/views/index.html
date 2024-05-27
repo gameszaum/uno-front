@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,36 +15,37 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <noscript>You need to enable Javascript in your browser to run this app.</noscript>
     <div id="menu-screen">
         <div class="loading-container">
-            <p>Loading...</p>
+            <p>Carregando...</p>
         </div>
         <div class="menu-container">
             <h1 class="title">UNO</h1>
-            <button id="play">Play</button>
-            <div class="menu-footer">
+            <button id="play">Jogar</button>
+            <!-- <div class="menu-footer">
                 <p>This game is <a target="_blank" href="https://github.com/mrozio13pl/uno">open source</a></p>
-            </div>
+            </div> -->
         </div>
     </div>
     <div id="games-container">
         <div class="head">
             <div>
-                <button class="create-room">Create Room</button>
+                <button class="create-room">Criar Sala</button>
             </div>
             <div style="border-left: 1px solid #5c5c5c;"></div>
             <div>
                 <input type="text" class="room-code" placeholder="Room Code">
-                <button class="join-room">Join</button>
+                <button class="join-room">Entrar</button>
             </div>
         </div>
         <div class="room-list">
-            Fetching data...
+            Carregando dados...
         </div>
         <div class="footer">
-            <button class="refresh">Refresh <i class="fa-solid fa-rotate"></i></button>
+            <button class="refresh">Atualizar <i class="fa-solid fa-rotate"></i></button>
         </div>
     </div>
     <div id="nickname">
@@ -51,12 +53,13 @@
             <input type="text" class="nickname" placeholder="Nickname" maxlength="16">
         </div>
         <div class="room-settings">
-            <label title="Make your room accessible only by a code" class="option">Private<input type="checkbox" data-private>
+            <label title="Make your room accessible only by a code" class="option">Private<input type="checkbox"
+                    data-private>
                 <span class="mark"></span>
             </label>
         </div>
         <div>
-            <button class="continue">Continue</button>
+            <button class="continue">Continuar</button>
         </div>
     </div>
     <div class="cancel">&times;</div>
@@ -69,7 +72,7 @@
         <hr>
         <div class="limbo-player-list"></div>
         <div class="limbo-admin">
-            <button class="limbo-start">Start</button>
+            <button class="limbo-start">Iniciar</button>
         </div>
     </div>
     <div id="overlay">
@@ -96,11 +99,11 @@
             </div>
         </div>
         <div id="scores">
-            <h1 class="scores-title">Leaderboard</h1>
+            <h1 class="scores-title">Ranking</h1>
             <div class="scores-list"></div>
             <div class="scores-admin">
                 <div class="admin-buttons">
-                    <button class="scores-start">Start</button>
+                    <button class="scores-start">Iniciar</button>
                 </div>
             </div>
         </div>
@@ -132,9 +135,9 @@
     </div>
     <div id="player-management-container">
         <div class="kick-head">
-            <div class="kick-desc">Do you want to kick <a></a>?</div>
-            <button class="kick-accept">Yes</button>
-            <button class="kick-decline">Cancel!</button>
+            <div class="kick-desc">Você quer expulsar <a></a>?</div>
+            <button class="kick-accept">Sim</button>
+            <button class="kick-decline">Não</button>
         </div>
     </div>
     <div id="error-container">
@@ -146,4 +149,5 @@
         </div>
     </div>
 </body>
+
 </html>
