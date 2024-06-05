@@ -1,4 +1,4 @@
-const server = new WebSocket('wss://api.hydra-slots.com/uno');
+const server = new WebSocket(`wss://${process.env.SOCKET}/uno`);
 const user = {}, room = {
     players: []
 };
